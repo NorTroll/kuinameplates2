@@ -70,7 +70,12 @@ do
             bar.spark:SetAlpha(1)
             bar.spark:Show()
         else
-            bar.spark:SetAlpha(1 - ((val - show_val) / (max - show_val)))
+			local alpha = 1 - ((val - show_val) / (max - show_val))
+			if (alpha < 0) then
+				alpha = 0
+			end
+			
+            bar.spark:SetAlpha(alpha)
             bar.spark:Show()
         end
     end
@@ -159,7 +164,7 @@ end
 local function CreateFontString(parent,small)
     local f = parent:CreateFontString(nil,'OVERLAY')
     f.fontobject_small = small
-    f:SetWordWrap()
+    f:SetWordWrap(true)
 
     UpdateFontObject(f)
 
@@ -1277,7 +1282,7 @@ do
     end
     local function CreateSpellName(f)
         local spellname = CreateFontString(f.CastBar,FONT_SIZE_SMALL)
-        spellname:SetWordWrap()
+        spellname:SetWordWrap(true)
         spellname:Hide()
 
         f.handler:RegisterElement('SpellName', spellname)
@@ -2144,7 +2149,10 @@ do
         f.HealthBar:Hide()
         f.HealthBar.fill:Hide()
         f.ThreatGlow:Hide()
-        f.ThreatBrackets:Hide()
+		
+		if (f.ThreatBrackets ~= nil) then
+			f.ThreatBrackets:Hide()
+		end
 
         f.NameText:SetParent(f)
         f.NameText:ClearAllPoints()
