@@ -626,6 +626,9 @@ do
         -- white by default
         f.NameText:SetTextColor(1,1,1,1)
         f.GuildText:SetTextColor(1,1,1,.8)
+		
+		-- dispatch event for plugins to override color
+		addon:DispatchMessage('NameTextColourChange', f)
 
         if f.state.personal then
             -- self (name & guild text always hidden)
@@ -665,6 +668,9 @@ do
                 f.NameText:SetTextColor(unpack(NAME_COLOUR_NPC_HOSTILE))
             end
         end
+		
+		-- dispatch event for plugins to override color
+		addon:DispatchMessage('NameTextColourChange', f)
 
         f.GuildText:SetTextColor(kui.Brighten(.8,f.NameText:GetTextColor()))
         f.GuildText:SetAlpha(.8)
