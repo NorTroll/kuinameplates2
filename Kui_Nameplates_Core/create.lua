@@ -762,7 +762,8 @@ do
         if s.health_per < 1 then
             return format('%.1f',s.health_per)..HEALTH_TEXT_PERCENT_SYMBOL
         else
-            return ceil(s.health_per)..HEALTH_TEXT_PERCENT_SYMBOL
+			return math.floor(s.health_per * 10)/10 ..HEALTH_TEXT_PERCENT_SYMBOL
+            --return ceil(s.health_per)..HEALTH_TEXT_PERCENT_SYMBOL   <--- old code
         end
     end
     local health_display_funcs = {
